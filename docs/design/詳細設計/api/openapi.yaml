@@ -1,0 +1,322 @@
+openapi: 3.0.3
+info:
+  title: DevFlow Engine API
+  description: API for DevFlow Engine to automate code generation and pull requests.
+  version: 1.0.0
+servers:
+  - url: https://api.devflow.example.com
+    description: Production server
+
+paths:
+  /sessions:
+    post:
+      summary: Start a new session
+      description: Initiates a new session, clones a GitHub repository, edits code based on a prompt, and creates a pull request.
+      operationId: startSession
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartSessionRequest'
+      responses:
+        '200':
+          description: Session started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartSessionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /sessions/{session_id}:
+    get:
+      summary: Get session status
+      description: Retrieves the current status and history of a session.
+      operationId: getSessionStatus
+      tags:
+        - Session
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSessionResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Stop a session
+      description: Stops a session and deletes related resources.
+      operationId: stopSession
+      tags:
+        - Session
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Session stopped successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSessionResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /sessions/{session_id}/prompts:
+    post:
+      summary: Execute an additional prompt
+      description: Sends an additional prompt to an existing session for further code modification.
+      operationId: executePrompt
+      tags:
+        - Session
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecutePromptRequest'
+      responses:
+        '200':
+          description: Prompt executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutePromptResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Session not in a running state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /sessions/{session_id}/editor:
+    get:
+      summary: Get editor URL
+      description: Retrieves the URL for the web-based editor (code-server).
+      operationId: getEditorUrl
+      tags:
+        - Session
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEditorUrlResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Container not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /health:
+    get:
+      summary: Health check
+      description: Performs a health check of the system.
+      operationId: healthCheck
+      tags:
+        - System
+      responses:
+        '200':
+          description: System is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+components:
+  schemas:
+    StartSessionRequest:
+      type: object
+      required:
+        - repository_url
+        - prompt
+      properties:
+        repository_url:
+          type: string
+          format: uri
+          example: https://github.com/owner/repo
+        prompt:
+          type: string
+          example: "Add a login feature using React and Express.js"
+
+    StartSessionResponse:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        status:
+          $ref: '#/components/schemas/SessionStatus'
+        message:
+          type: string
+
+    ExecutePromptRequest:
+      type: object
+      required:
+        - prompt
+      properties:
+        prompt:
+          type: string
+          example: "Add password strength check to the login feature"
+
+    ExecutePromptResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/SessionStatus'
+        message:
+          type: string
+        pr_url:
+          type: string
+          format: uri
+
+    GetSessionResponse:
+      $ref: '#/components/schemas/Session'
+
+    GetEditorUrlResponse:
+      type: object
+      properties:
+        editor_url:
+          type: string
+          format: uri
+        expires_at:
+          type: integer
+          format: int64
+
+    DeleteSessionResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+    Session:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+        repository_url:
+          type: string
+          format: uri
+        branch_name:
+          type: string
+        status:
+          $ref: '#/components/schemas/SessionStatus'
+        pr_url:
+          type: string
+          format: uri
+        editor_url:
+          type: string
+          format: uri
+        created_at:
+          type: integer
+          format: int64
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryItem'
+
+    HistoryItem:
+      type: object
+      properties:
+        prompt:
+          type: string
+        response:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        pr_url:
+          type: string
+          format: uri
+
+    SessionStatus:
+      type: string
+      enum: [starting, running, stopped, error]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          properties:
+            field:
+              type: string
+            value:
+              type: string
+        request_id:
+          type: string
+        timestamp:
+          type: integer
+          format: int64

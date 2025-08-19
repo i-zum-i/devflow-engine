@@ -1,0 +1,169 @@
+<mxfile host="app.diagrams.net" modified="2025-08-18T14:45:00.000Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="qwsdE9o8h7tY65rFg4hT" version="24.4.0" type="device">
+  <diagram name="Page-1" id="C4_UvU8rI-Aax6-pDBxW">
+    <mxGraphModel dx="2186" dy="1287" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="user-group" value="ユーザー" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="780" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="user-icon" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="user-group">
+          <mxGeometry x="40" y="" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="frontend-group" value="フロントエンド" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="760" y="180" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="react-app" value="React Web App" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="frontend-group">
+          <mxGeometry y="" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="api-gateway-group" value="AWS API Gateway" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="720" y="300" width="240" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="api-gateway-icon" value="&lt;b&gt;API Endpoints&lt;/b&gt;&lt;br&gt;/start-session&lt;br&gt;/execute-prompt&lt;br&gt;/get-editor-url&lt;br&gt;/stop-session" style="shape=mxgraph.aws25.api_gateway;html=1;align=center;verticalAlign=top;dashed=0;whiteSpace=wrap;" vertex="1" parent="api-gateway-group">
+          <mxGeometry x="85" y="" width="70" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-group" value="AWS Lambda (Backend Logic)" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="480" y="480" width="720" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-start-session" value="start_session" style="shape=mxgraph.aws25.lambda;html=1;dashed=0;verticalAlign=bottom;align=center;labelPosition=center;verticalLabelPosition=middle;" vertex="1" parent="lambda-group">
+          <mxGeometry x="" y="20" width="70" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-execute-prompt" value="execute_prompt" style="shape=mxgraph.aws25.lambda;html=1;dashed=0;verticalAlign=bottom;align=center;labelPosition=center;verticalLabelPosition=middle;" vertex="1" parent="lambda-group">
+          <mxGeometry x="220" y="20" width="70" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-get-editor-url" value="get_editor_url" style="shape=mxgraph.aws25.lambda;html=1;dashed=0;verticalAlign=bottom;align=center;labelPosition=center;verticalLabelPosition=middle;" vertex="1" parent="lambda-group">
+          <mxGeometry x="440" y="20" width="70" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-stop-session" value="stop_session" style="shape=mxgraph.aws25.lambda;html=1;dashed=0;verticalAlign=bottom;align=center;labelPosition=center;verticalLabelPosition=middle;" vertex="1" parent="lambda-group">
+          <mxGeometry x="650" y="20" width="70" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="state-secrets-group" value="AWS State &amp; Secrets" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="380" y="640" width="400" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dynamodb-icon" value="&lt;b&gt;DynamoDB&lt;/b&gt;&lt;br&gt;セッション管理" style="shape=mxgraph.aws25.dynamodb;html=1;dashed=0;verticalAlign=top;align=center;whiteSpace=wrap;" vertex="1" parent="state-secrets-group">
+          <mxGeometry x="" y="20" width="75" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="secrets-manager-icon" value="&lt;b&gt;Secrets Manager&lt;/b&gt;&lt;br&gt;GitHub Appキー管理" style="shape=mxgraph.aws25.secrets_manager;html=1;dashed=0;verticalAlign=top;align=center;whiteSpace=wrap;" vertex="1" parent="state-secrets-group">
+          <mxGeometry x="280" y="20" width="80" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="container-service-group" value="AWS Container Service" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="900" y="640" width="400" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs-fargate-icon" value="ECS on Fargate" style="shape=mxgraph.aws25.elastic_container_service;html=1;dashed=0;verticalAlign=bottom;align=center;" vertex="1" parent="container-service-group">
+          <mxGeometry x="165" y="20" width="70" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="container-icon" value="&lt;b&gt;Container (Docker)&lt;/b&gt;&lt;br&gt;- code-server&lt;br&gt;- claudecode&lt;br&gt;- GitHub CLI&lt;br&gt;- Custom Scripts" style="shape=cylinder3;size=15;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="container-service-group">
+          <mxGeometry x="140" y="140" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="external-service-group" value="外部サービス" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="980" y="960" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="github-api" value="GitHub API" style="shape=image;html=1;verticalAlign=bottom;verticalLabelPosition=middle;labelBackgroundColor=#ffffff;image=https://cdn-icons-png.flaticon.com/512/25/25231.png" vertex="1" parent="external-service-group">
+          <mxGeometry x="85" y="" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-user-frontend" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="user-icon" target="react-app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-frontend-api" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="react-app" target="api-gateway-icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-api-lambda1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="api-gateway-icon" target="lambda-start-session">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-api-lambda2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="api-gateway-icon" target="lambda-execute-prompt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-api-lambda3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="api-gateway-icon" target="lambda-get-editor-url">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-api-lambda4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="api-gateway-icon" target="lambda-stop-session">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-lambda1-ecs" value="1. runTask" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lambda-start-session" target="ecs-fargate-icon">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="targetPoint" x="915" y="590" />
+            <Array as="points">
+              <mxPoint x="515" y="610" />
+              <mxPoint x="1000" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-lambda1-db" value="2. セッション保存" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lambda-start-session" target="dynamodb-icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-lambda2-db" value="1. タスクID取得" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lambda-execute-prompt" target="dynamodb-icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-lambda2-ecs" value="2. executeCommand" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lambda-execute-prompt" target="ecs-fargate-icon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="735" y="620" />
+              <mxPoint x="1000" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-lambda3-ecs" value="1. タスク情報取得" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lambda-get-editor-url" target="ecs-fargate-icon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="955" y="630" />
+              <mxPoint x="1000" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-lambda3-frontend" value="2. IPアドレスを返す" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF3333;strokeWidth=2;" edge="1" parent="1" source="lambda-get-editor-url" target="react-app">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="955" y="450" />
+              <mxPoint x="840" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-lambda4-db" value="1. タスクID取得" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lambda-stop-session" target="dynamodb-icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-lambda4-ecs" value="2. stopTask" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="lambda-stop-session" target="ecs-fargate-icon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1185" y="600" />
+              <mxPoint x="1100" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-ecs-container" value="Fargateがタスク起動" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ecs-fargate-icon" target="container-icon">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-container-secrets" value="1. Secrets取得" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="container-icon" target="secrets-manager-icon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="840" />
+              <mxPoint x="700" y="840" />
+              <mxPoint x="700" y="704" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-container-github-push" value="2. git clone/push" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="container-icon" target="github-api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-container-github-pr" value="3. create PR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="container-icon" target="github-api">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1200" y="880" />
+              <mxPoint x="1200" y="980" />
+              <mxPoint x="1120" y="980" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-user-editor" value="Editor URL" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="user-icon" target="container-icon">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="840" y="460" />
+              <mxPoint x="1400" y="460" />
+              <mxPoint x="1400" y="800" />
+              <mxPoint x="1220" y="800" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
