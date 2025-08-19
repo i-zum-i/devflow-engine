@@ -52,6 +52,7 @@ use case diagram
     UC002 -- ExtGitHub
     UC003 -- ExtGitHub
     UC006 -- ExtGitHub```
+```
 
 -----
 
